@@ -1,4 +1,4 @@
-import { NextApiRequest, NextApiResponse } from 'next';
+
 import request from 'request';
 var stateKey = 'spotify_auth_state';
 import querystring from 'querystring';
