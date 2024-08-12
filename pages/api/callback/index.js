@@ -64,6 +64,8 @@ export default async function handler(req, res) {
 
                 // Redirect the user to the landing page with the access token and refresh token as query parameters
                 res.redirect('/landing?' + querystring.stringify({ access_token: access_token, refresh_token: refresh_token }))
+            } else {
+                res.redirect('/landing?' + querystring.stringify({ error:true, error_description: error }))
             }
         });
     }

@@ -72,12 +72,11 @@ const LandingPage = () => {
   const fetchNowPlaying = async () => {
     let at = localStorage.getItem('accessToken')
     if (at) {
-      const response = await fetch(`https://api.spotify.com/v1/me/player/currently-playing`, {
+      const response = await fetch('/api/nowPlaying', {
         headers: {
           Authorization: `Bearer ${at}`,
         },
-      });
-
+      });    
       const data = await response.json();
       // if (JSON.stringify(data.item) === JSON.stringify(nowPlayingData?.item)) return
       setNowPlayingData(data);
