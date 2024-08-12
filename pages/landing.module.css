@@ -1,0 +1,67 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+
+.button{
+  font-family: "DM Sans", sans-serif;
+  background-color: transparent;
+}
+.font {
+  font-family: "DM Sans", sans-serif !important;
+  color: rgb(255, 255, 255);
+}
+.image {
+    border-radius:8px;
+    box-shadow: 0  10px 50px  #0000008d;
+}
+.now {
+    font-size: 38px;
+    font-weight: bold;
+}
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(100vh - 16px);
+    backdrop-filter: blur(60px) brightness(30%) contrast(70%); 
+}
+.artists {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    font-size: 24px;
+    justify-content: center;
+    font-weight: bold;
+}
+.artists  a{
+    color: rgba(255, 245, 245, 0.672);
+    text-decoration: none;
+    font-weight: 400;
+   
+}
+.plabackControls{
+    display: flex;
+    flex-direction: row;
+    gap: 32px;
+    font-size: 24px;
+    justify-content: center;
+    font-weight: bold;
+    margin-bottom: 32px
+}
+.plabackControls img {
+    height:24px;
+    width:24px;
+    filter:brightness(1000%);
+    padding: 16px;
+    border-radius: 30px;
+    background-color: #0000004a;
+}
+.plabackControls img:hover {
+    background-color: #dedede42;
+    transition-duration: 300ms;
+}
+.plabackControls img:active {
+    background-color: #dedede9d;
+    transition-duration: 300ms;
+}
