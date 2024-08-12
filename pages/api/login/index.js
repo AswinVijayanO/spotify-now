@@ -6,13 +6,13 @@ var stateKey = 'spotify_auth_state';
 import querystring from 'querystring';
 import { config } from 'dotenv';
 config();
-const { CLIENT_ID } = process.env;
+const { CLIENT_ID,HOST } = process.env;
 
 /**
  * The redirect URI for the Spotify OAuth process.
  * This is the URI to which Spotify will redirect the user after authorization.
  */
-var redirect_uri = 'http://localhost:3000/api/callback'; // Your redirect uri
+var redirect_uri = HOST+'/api/callback'; // Your redirect uri
 
 /**
  * Generates a random string of given length.
