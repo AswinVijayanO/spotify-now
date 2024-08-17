@@ -4,13 +4,13 @@ var stateKey = 'spotify_auth_state';
 import querystring from 'querystring';
 import { config } from 'dotenv';
 config();
-const { CLIENT_ID, CLIENT_SECRET } = process.env;
+const { CLIENT_ID, CLIENT_SECRET,HOST } = process.env;
 
 var client_id = CLIENT_ID; // your clientId
 var client_secret = CLIENT_SECRET; // Your secret
 
 
-var redirect_uri = 'http://localhost:3000/api/callback'; // Your redirect uri
+var redirect_uri = HOST+'/api/callback'; // Your redirect uri
 import { cookies } from 'next/headers'
 /**
  * This function handles the callback from Spotify's OAuth process.
