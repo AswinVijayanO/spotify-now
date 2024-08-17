@@ -192,7 +192,7 @@ const LandingPage = () => {
 
                             <div className={styles.controls}>
                                 <h2 className={[styles.font, styles.now].join(" ")}>Now Playing</h2>
-                                <p className={styles.font}>{nowPlayingData.item.name}</p>
+                                <p className={[styles.font,styles.title].join(" ")}>{nowPlayingData.item.name}</p>
                                 <span> by</span>
                                 <div className={styles.artists}>
 
