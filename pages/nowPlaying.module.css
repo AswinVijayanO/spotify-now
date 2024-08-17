@@ -11,6 +11,7 @@
     font-family: "DM Serif Text", sans-serif !important;
     color: rgb(0, 0, 0);
     margin: 0;
+    font-size: 32px;
 }
 .loading {
     min-height: calc(100vh - 16px);
@@ -23,8 +24,9 @@
 }
 
 .now {
-    font-size: 38px;
+    font-size: 28px;
     font-weight: bold;
+    color: var(--secondary-color);
 }
 
 .container {
@@ -34,7 +36,7 @@
     justify-content: center;
     min-height: calc(100vh - 16px);
     backdrop-filter: blur(60px) brightness(350%) contrast(40%);
-    background-color: var(--background-color);
+    background-color: #eee0c6e7
 }
 
 .artists {
@@ -43,9 +45,9 @@
     flex-wrap: wrap;
     align-items: center;
     gap: 8px;
-    font-size: 24px;
     justify-content: center;
     font-weight: bold;
+    font-size: 16px;
 }
 
 .artists a {
@@ -62,7 +64,8 @@
     font-size: 24px;
     justify-content: center;
     font-weight: bold;
-    margin-bottom: 32px
+    margin-bottom: 32px;
+  
 }
 
 .plabackControls img {
