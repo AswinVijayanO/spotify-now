@@ -45,6 +45,7 @@ export default async function handler(req, res) {
 
         // Make the request to exchange the authorization code for tokens
         request.post(authOptions, function (error, response, body) {
+            console.log(error)
             if (!error && response.statusCode === 200) {
                 // Get the access token and refresh token from the response body
                 var access_token = body.access_token,
