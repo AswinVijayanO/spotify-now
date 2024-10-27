@@ -16,23 +16,21 @@ async function getSpotifyToken() {
       accessToken = tokenData.access_token;
 }
 export default async function handler(req, res) {
-    const artist = req.query.artist;
-    const track = req.query.track;
-
+    const artistParam = decodeURIComponent(req.query.artist).trim();
+    const track = decodeURIComponent(req.query.track).trim();
+    let artist = artistParam.split(",")[0]
     if (!artist || !track) {
         return res.status(400).json({ error: 'Artist and track are required' });
     }
 
     try {
         if (!accessToken) await getSpotifyToken();
-        console.log("accesstoken",accessToken);
         const resp = await fetch(`https://api.spotify.com/v1/search?q=track:${track} artist:${artist}&type=track`, {
             headers: {
                 Authorization: `Bearer ${accessToken}`
             }
         });
         let response  = await resp.json();
-        console.log(response);
         if (response.tracks.items.length > 0) {
             const albumArtUrl = response.tracks.items[0].album.images[0].url;
             const imgresponse = await fetch(albumArtUrl);
@@ -49,7 +47,20 @@ export default async function handler(req, res) {
             res.setHeader('Content-Length', resizedImage.length);
             res.send(resizedImage);
         } else {
-            res.json({ albumArtUrl: 'Album art not found' });
+            let albumArtUrl = "https://i.scdn.co/image/ab67616d0000b273d9194aa18fa4c9362b47464f"
+            const imgresponse = await fetch(albumArtUrl);
+            const buffer = Buffer.from(await imgresponse.arrayBuffer());
+        
+            // Resize the image to 300x300 pixels
+            const resizedImage = await sharp(buffer)
+              .resize(240, 240)
+              .toFormat('jpeg')
+              .toBuffer();
+        
+            // Set the response headers and send the image
+            res.setHeader('Content-Type', 'image/jpeg');
+            res.setHeader('Content-Length', resizedImage.length);
+            res.send(resizedImage);
         }
     } catch (error) {
         console.error(error);
