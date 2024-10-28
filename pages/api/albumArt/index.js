@@ -6,14 +6,14 @@ async function getSpotifyToken() {
     const tokenResponse = await fetch('https://accounts.spotify.com/api/token', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-          Authorization: `Basic ${Buffer.from(`${CLIENT_ID}:${CLIENT_SECRET}`).toString('base64')}`
+            'Content-Type': 'application/x-www-form-urlencoded',
+            Authorization: `Basic ${Buffer.from(`${CLIENT_ID}:${CLIENT_SECRET}`).toString('base64')}`
         },
         body: new URLSearchParams({ grant_type: 'client_credentials' })
-      });
-  
-      const tokenData = await tokenResponse.json();
-      accessToken = tokenData.access_token;
+    });
+
+    const tokenData = await tokenResponse.json();
+    accessToken = tokenData.access_token;
 }
 export default async function handler(req, res) {
     const artistParam = decodeURIComponent(req.query.artist).trim();
@@ -30,18 +30,27 @@ export default async function handler(req, res) {
                 Authorization: `Bearer ${accessToken}`
             }
         });
-        let response  = await resp.json();
+        let response = await resp.json();
+        const roundedCorners = Buffer.from(
+            '<svg><rect x="0" y="0" width="240" height="240" rx="20" ry="20"/></svg>'
+        );
+
         if (response.tracks.items.length > 0) {
             const albumArtUrl = response.tracks.items[0].album.images[0].url;
             const imgresponse = await fetch(albumArtUrl);
             const buffer = Buffer.from(await imgresponse.arrayBuffer());
-        
+
             // Resize the image to 300x300 pixels
             const resizedImage = await sharp(buffer)
-              .resize(240, 240)
-              .toFormat('jpeg')
-              .toBuffer();
-        
+                .resize(240, 240)
+                .composite([{
+                    input: roundedCorners,
+                    blend: 'dest-in'
+                }])
+                .toFormat('jpeg', { quality: 50 })
+
+                .toBuffer();
+
             // Set the response headers and send the image
             res.setHeader('Content-Type', 'image/jpeg');
             res.setHeader('Content-Length', resizedImage.length);
@@ -50,13 +59,17 @@ export default async function handler(req, res) {
             let albumArtUrl = "https://i.scdn.co/image/ab67616d0000b273d9194aa18fa4c9362b47464f"
             const imgresponse = await fetch(albumArtUrl);
             const buffer = Buffer.from(await imgresponse.arrayBuffer());
-        
+
             // Resize the image to 300x300 pixels
             const resizedImage = await sharp(buffer)
-              .resize(240, 240)
-              .toFormat('jpeg')
-              .toBuffer();
-        
+                .resize(240, 240)
+                .composite([{
+                    input: roundedCorners,
+                    blend: 'dest-in'
+                }])
+                .toFormat('jpeg', { quality: 50 })
+                .toBuffer();
+
             // Set the response headers and send the image
             res.setHeader('Content-Type', 'image/jpeg');
             res.setHeader('Content-Length', resizedImage.length);
